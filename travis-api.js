@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/report/:nmtId', async (req, res) => {
-  getData(req.params).then((result) => {
+  getData({ ...req.params, ...req.query }).then((result) => {
     res.setHeader('Content-Type', 'application/json');
-    res.send(result);
+    res.send(JSON.stringify(result));
   });
 });
 
