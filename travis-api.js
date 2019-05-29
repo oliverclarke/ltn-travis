@@ -1,6 +1,6 @@
 import express from 'express';
 
-import getData from './travis-controller';
+import { getWebReport, getTracks } from './travis-controller';
 
 const router = express.Router();
 
@@ -9,14 +9,17 @@ router.get('/', (req, res) => {
 });
 
 router.get('/report/:nmtId', async (req, res) => {
-  getData({ ...req.params, ...req.query }).then((result) => {
+  getWebReport({ ...req.params, ...req.query }).then((result) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(result));
   });
 });
 
-router.get('tracks', async (req, res) => {
-  res.send('Travis tracks');
+router.get('/tracks', async (req, res) => {
+  getTracks({ ...req.params, ...req.query }).then((result) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(result));
+  });
 });
 
 export default router;
